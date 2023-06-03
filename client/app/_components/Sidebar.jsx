@@ -19,7 +19,7 @@ const Sidebar = ({ id }) => {
 
     return (
         <div
-            className={`bg-gray-800 h-full overflow-auto flex flex-col justify-between ${
+            className={`bg-gray-800 h-full overflow-auto flex flex-col justify-between w-full md:w-4/12 ${
                 selectedConversation ? "hidden md:flex" : "w-full md:w-4/12"
             }`}
         >

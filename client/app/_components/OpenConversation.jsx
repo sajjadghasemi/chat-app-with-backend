@@ -1,5 +1,5 @@
 import { useConversations } from "@/contexts/ConversationsProvider";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Fade } from "react-awesome-reveal";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { IoSendSharp } from "react-icons/io5";
@@ -9,7 +9,7 @@ const OpenConversation = () => {
     const [send, setSend] = useState(false);
     const { sendMessage, selectedConversation, selectConversationIndex } =
         useConversations();
-    const divRef = document.getElementById("divRef");
+    const divRef = useRef(null);
 
     const handleSubmit = (e) => {
         setTimeout(() => {
@@ -24,10 +24,12 @@ const OpenConversation = () => {
         setSend(false);
     };
 
+    const scrollToBottom = () => {
+        divRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
     useEffect(() => {
-        if (divRef?.scrollHeight) {
-            divRef.scrollTop = divRef.scrollHeight;
-        }
+        scrollToBottom();
     }, [selectedConversation]);
 
     return (
@@ -88,6 +90,7 @@ const OpenConversation = () => {
                             </div>
                         </Fade>
                     ))}
+                    <div ref={divRef} />
                 </div>
                 <div className="h-[10%] w-full flex bg-blue-100">
                     <form onSubmit={handleSubmit} className="flex w-full">
