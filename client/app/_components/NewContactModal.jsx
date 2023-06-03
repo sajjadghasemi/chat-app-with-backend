@@ -15,28 +15,28 @@ export default function NewContactModal({ closeModal }) {
 
     return (
         <div className="flex flex-col gap-y-3 justify-center items-center w-11/12">
-            <h2 className="text-xl">Create Contact</h2>
+            <h2 className="text:md md:text-xl">Create Contact</h2>
             <div className="">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-y-3">
                     <input
-                        className="outline-none border-[1px] border-slate-400 rounded px-2 py-1"
-                        placeholder="Enter your id"
+                        className="outline-none w-36 md:w-80 border-[1px] border-slate-400 rounded px-2 py-1"
+                        placeholder="Enter number"
                         type="text"
                         ref={idRef}
                         required
                     />
                     <input
-                        className="outline-none border-[1px] border-slate-400 rounded px-2 py-1"
-                        placeholder="Enter your name"
+                        className="outline-none w-36 md:w-80 border-[1px] border-slate-400 rounded px-2 py-1"
+                        placeholder="Enter name"
                         type="text"
                         ref={nameRef}
                         required
                     />
                     <button
-                        className="bg-green-700 rounded text-white py-1 font-semibold hover:bg-green-800"
+                        className="bg-gray-700 rounded text-white py-1 font-semibold hover:bg-gray-800"
                         type="submit"
                     >
-                        Create
+                        Create contact
                     </button>
                 </form>
             </div>

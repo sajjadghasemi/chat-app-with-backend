@@ -1,20 +1,27 @@
 import { useConversations } from "@/contexts/ConversationsProvider";
 import React, { useState, useEffect } from "react";
 import { Fade } from "react-awesome-reveal";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import { IoSendSharp } from "react-icons/io5";
 
 const OpenConversation = () => {
     const [text, setText] = useState("");
-    const { sendMessage, selectedConversation } = useConversations();
+    const [send, setSend] = useState(false);
+    const { sendMessage, selectedConversation, selectConversationIndex } =
+        useConversations();
     const divRef = document.getElementById("divRef");
 
     const handleSubmit = (e) => {
+        setTimeout(() => {
+            setSend(true);
+        }, 50);
         e.preventDefault();
-
         sendMessage(
             selectedConversation.recipients.map((recipient) => recipient.id),
             text
         );
         setText("");
+        setSend(false);
     };
 
     useEffect(() => {
@@ -24,19 +31,34 @@ const OpenConversation = () => {
     }, [selectedConversation]);
 
     return (
-        <div className="flex flex-col w-8/12 h-full">
-            <div
-                id="divRef"
-                className="p-2 bg-gray-100 h-5/6 w-full overflow-auto flex flex-col"
-            >
-                {selectedConversation.messages.map((message, index) => {
-                    return (
+        <div
+            className={`flex flex-col h-full ${
+                !selectedConversation ? "hidden md:flex" : "w-full md:w-8/12"
+            }`}
+        >
+            <div className="flex flex-col w-full h-screen">
+                <p className="flex items-center border-l-2 px-4 bg-gray-800 text-white font-semibold h-[8.8%] w-full">
+                    <span className="mr-2">
+                        {selectedConversation && (
+                            <AiOutlineArrowLeft
+                                onClick={() => selectConversationIndex(null)}
+                                className="text-xl cursor-pointer"
+                            />
+                        )}
+                    </span>
+                    <span>Online Chat</span>
+                </p>
+                <div
+                    id="divRef"
+                    className="scroll-smooth p-2 bg-gray-300 h-[81.2%] w-full overflow-auto flex flex-col"
+                >
+                    {selectedConversation.messages.map((message, index) => (
                         <Fade
+                            key={index}
                             direction="up"
                             duration={800}
                             cascade
                             triggerOnce
-                            key={index}
                         >
                             <div
                                 className={`flex my-1 w-full ${
@@ -46,48 +68,50 @@ const OpenConversation = () => {
                                 }`}
                             >
                                 <p
-                                    className={`flex flex-col overflow-hidden break-words px-3 py-1 rounded-md text-white ${
+                                    className={`flex flex-col overflow-hidden break-words px-3 py-1 rounded-md font-semibold text-white ${
                                         message.fromMe
-                                            ? "bg-blue-600"
-                                            : "bg-gray-600"
+                                            ? "justify-end bg-blue-700"
+                                            : "justify-start bg-gray-700"
                                     }`}
                                 >
                                     {message.text}
                                     <span
-                                        className={`text-xs ${
+                                        className={`text-[.65rem] text-slate-400 ${
                                             message.fromMe
                                                 ? "text-right"
                                                 : "text-left"
                                         }`}
                                     >
-                                        {message.fromMe
-                                            ? "You"
-                                            : message.senderName}
+                                        <strong>{message.senderName}</strong>
                                     </span>
                                 </p>
                             </div>
                         </Fade>
-                    );
-                })}
-            </div>
-            <div className="bg-gray-100 h-1/6 flex items-center px-2 border-t border-gray-800">
-                <form onSubmit={handleSubmit} className="flex w-full gap-2">
-                    <textarea
-                        className="w-10/12 p-2 outline-none resize-none border-2 border-gray-500 rounded-md"
-                        rows="3"
-                        placeholder="Enter your text..."
-                        value={text}
-                        onChange={(e) => setText(e.target.value)}
-                        required
-                    ></textarea>
-                    <button
-                        className="w-2/12 bg-green-700 hover:bg-green-800 font-semibold text-white rounded-md disabled:bg-green-600 disabled:cursor-not-allowed"
-                        rows="3"
-                        disabled={text === ""}
-                    >
-                        Send
-                    </button>
-                </form>
+                    ))}
+                </div>
+                <div className="h-[10%] w-full flex bg-blue-100">
+                    <form onSubmit={handleSubmit} className="flex w-full">
+                        <textarea
+                            className="w-[88%] px-2 py-4 placeholder-slate-700 bg-blue-100 text-md outline-none resize-none"
+                            rows="1"
+                            placeholder="Enter your text..."
+                            value={text}
+                            onChange={(e) => setText(e.target.value)}
+                            required
+                        ></textarea>
+                        <button
+                            className="flex overflow-hidden justify-center items-center w-[12%] cursor-pointer"
+                            disabled={text === ""}
+                            type="submit"
+                        >
+                            <IoSendSharp
+                                className={`text-3xl text-green-800 ${
+                                    send && "animate-wiggle"
+                                }`}
+                            />
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     );

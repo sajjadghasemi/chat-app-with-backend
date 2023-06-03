@@ -3,49 +3,57 @@ import NewConversationModal from "./NewConversationModal";
 import NewContactModal from "./NewContactModal";
 import Conversation from "./Conversation";
 import Contacts from "./Contacts";
+import { RiContactsFill } from "react-icons/ri";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import { useConversations } from "@/contexts/ConversationsProvider";
 
 const Sidebar = ({ id }) => {
     const [activeKey, setActiveKey] = useState(1);
     const [modalOpen, setModalOpen] = useState(false);
     const conversationsOpen = activeKey === 1;
+    const { selectedConversation } = useConversations();
 
     function closeModal() {
         setModalOpen(false);
     }
 
     return (
-        <div className="w-4/12 bg-gray-300 h-full overflow-auto flex flex-col justify-between">
+        <div
+            className={`bg-gray-800 h-full overflow-auto flex flex-col justify-between ${
+                selectedConversation ? "hidden md:flex" : "w-full md:w-4/12"
+            }`}
+        >
             <div className="flex flex-col">
                 <div className="w-full flex">
-                    <button
-                        onClick={() => setActiveKey(1)}
-                        className={`p-2 border-[1px] border-slate-900 w-full transition-all ${
-                            conversationsOpen &&
-                            "border-b-0 border-r-0 bg-gray-700 text-white"
-                        }`}
-                    >
-                        Conversation
-                    </button>
-                    <button
-                        onClick={() => setActiveKey(2)}
-                        className={`p-2 border-[1px] border-slate-900 w-full transition-all ${
-                            !conversationsOpen &&
-                            "border-b-0 border-l-0 bg-gray-700 text-white"
-                        }`}
-                    >
-                        Contacts
-                    </button>
+                    <div className="p-4 w-full border-b-2 text-white font-semibold flex items-center">
+                        {conversationsOpen ? (
+                            "Conversation"
+                        ) : (
+                            <span className="flex gap-x-3 items-center">
+                                <AiOutlineArrowLeft
+                                    className="text-xl cursor-pointer"
+                                    onClick={() => setActiveKey(1)}
+                                />
+                                Contacts
+                            </span>
+                        )}
+                    </div>
                 </div>
                 <div>{conversationsOpen ? <Conversation /> : <Contacts />}</div>
             </div>
-            <div className="p-2 border-t border-slate-900 flex flex-col">
-                <span className="text-sm text-gray-700">Your Id: {id}</span>
+
+            <div className="p-2 border-slate-900 flex flex-col gap-y-4">
+                <RiContactsFill
+                    onClick={() => setActiveKey(2)}
+                    className="text-5xl ml-3 text-gray-900 bg-gray-100 p-1 rounded-full cursor-pointer transition-all hover:bg-gray-300 hover:-translate-y-2"
+                />
                 <button
                     onClick={() => setModalOpen(true)}
-                    className="mt-2 bg-green-700 rounded-md text-white hover:bg-green-800"
+                    className="bg-gray-100 rounded-md py-2 text-gray-900 hover:bg-gray-300"
                 >
                     New {conversationsOpen ? "Conversation" : "Contact"}
                 </button>
+                <span className="text-gray-200 text-xs">Your number: {id}</span>
             </div>
             {modalOpen && (
                 <div className="fixed top-6 left-6 right-6 flex justify-center items-center w-11/12 h-auto z-20 bg-white rounded-md p-2">

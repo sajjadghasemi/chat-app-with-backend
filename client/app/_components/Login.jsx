@@ -29,21 +29,26 @@ export default function Login({ onIdSubmit }) {
                         type="text"
                         ref={idRef}
                         required
-                        placeholder="Enter your id"
+                        placeholder="Enter your number"
                     />
                 </div>
-                <div className="flex justify-evenly">
+                <div className="flex flex-col gap-y-1 items-center">
                     <button
                         type="submit"
-                        className="bg-green-600 px-4 py-1 rounded-md text-white font-bold hover:bg-green-700"
+                        className="bg-green-700 w-full px-4 py-1 rounded-md text-white font-bold hover:bg-green-800"
                     >
                         Login
                     </button>
+                    <span
+                        className="text-gray-800 px-2 py-1 rounded-md"
+                    >
+                        Or
+                    </span>
                     <button
                         onClick={createNewId}
-                        className="bg-gray-600 px-4 py-1 rounded-md text-white font-bold hover:bg-gray-700"
+                        className="bg-gray-600 w-full px-4 py-1 rounded-md text-white font-bold hover:bg-gray-700"
                     >
-                        Create A New Id
+                        Generate a random number
                     </button>
                 </div>
             </form>

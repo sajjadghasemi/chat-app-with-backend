@@ -5,11 +5,11 @@ const Conversation = () => {
     const { conversations, selectConversationIndex } = useConversations();
 
     return (
-        <ul className="p-2 flex flex-col-reverse gap-y-3">
+        <ul className="p-1 flex flex-col-reverse gap-y-1">
             {conversations.map((conversation, index) => (
                 <li
-                    className={`border-b border-gray-400 h-8 flex font-bold transition-all duration-500 text-teal-800 ${
-                        conversation.selected && "border-r-4 border-gray-700"
+                    className={`border rounded-md flex text-white font-semibold p-2 cursor-pointer hover:bg-gray-900 ${
+                        conversation.selected && "border-r-8 border-gray-100"
                     }`}
                     key={index}
                     onClick={() => selectConversationIndex(index)}
