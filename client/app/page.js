@@ -7,17 +7,20 @@ import Dashboard from "./_components/Dashboard";
 import { ContactsProvider } from "@/contexts/ContactsProvider";
 import { ConversationsProvider } from "@/contexts/ConversationsProvider";
 import { SocketProvider } from "@/contexts/SocketProvider";
+import { ToastProvider } from "@/contexts/ToastProvider";
 
 const Page = () => {
     const [id, setId] = useLocalStorage("id");
 
     const dashboard = (
         <SocketProvider id={id}>
-            <ContactsProvider>
-                <ConversationsProvider id={id}>
-                    <Dashboard id={id} />
-                </ConversationsProvider>
-            </ContactsProvider>
+            <ToastProvider>
+                <ContactsProvider>
+                    <ConversationsProvider id={id}>
+                        <Dashboard id={id} />
+                    </ConversationsProvider>
+                </ContactsProvider>
+            </ToastProvider>
         </SocketProvider>
     );
 

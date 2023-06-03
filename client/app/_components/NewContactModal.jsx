@@ -1,15 +1,18 @@
 import { useContacts } from "@/contexts/ContactsProvider";
+import { useToast } from "@/contexts/ToastProvider";
 import React, { useRef } from "react";
 
 export default function NewContactModal({ closeModal }) {
     const idRef = useRef();
     const nameRef = useRef();
     const { createContact } = useContacts();
+    const { createToast } = useToast();
 
     function handleSubmit(e) {
         e.preventDefault();
 
         createContact(idRef.current.value, nameRef.current.value);
+        createToast("Contact added successfully");
         closeModal();
     }
 

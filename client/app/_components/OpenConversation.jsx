@@ -84,7 +84,11 @@ const OpenConversation = () => {
                                                 : "text-left"
                                         }`}
                                     >
-                                        <strong>{message.senderName}</strong>
+                                        <strong>
+                                            {message.fromMe
+                                                ? "You"
+                                                : message.senderName}
+                                        </strong>
                                     </span>
                                 </p>
                             </div>

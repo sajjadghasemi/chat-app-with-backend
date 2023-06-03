@@ -43,10 +43,12 @@ const Sidebar = ({ id }) => {
             </div>
 
             <div className="p-2 border-slate-900 flex flex-col gap-y-4">
-                <RiContactsFill
-                    onClick={() => setActiveKey(2)}
-                    className="text-5xl ml-3 text-gray-900 bg-gray-100 p-1 rounded-full cursor-pointer transition-all hover:bg-gray-300 hover:-translate-y-2"
-                />
+                {activeKey !== 2 && (
+                    <RiContactsFill
+                        onClick={() => setActiveKey(2)}
+                        className="text-5xl ml-3 text-gray-900 bg-gray-100 p-1 rounded-full cursor-pointer transition-all hover:bg-gray-300 hover:-translate-y-2"
+                    />
+                )}
                 <button
                     onClick={() => setModalOpen(true)}
                     className="bg-gray-100 rounded-md py-2 text-gray-900 hover:bg-gray-300"

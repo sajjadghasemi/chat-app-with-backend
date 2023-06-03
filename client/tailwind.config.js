@@ -24,9 +24,41 @@ module.exports = {
                     "90%": { transform: "translateX(5px)" },
                     "100%": { transform: "translateX(0px)" },
                 },
+                toast: {
+                    "0%": { transform: "translateY(-100px)" },
+                    "10%": { transform: "translateY(30px)" },
+                    "20%": {
+                        transform: "translateY(0px)",
+                    },
+                    "30%": {
+                        transform: "translateY(0px)",
+                    },
+                    "40%": {
+                        transform: "translateY(0px)",
+                    },
+                    "50%": {
+                        transform: "translateY(0px)",
+                    },
+                    "60%": {
+                        transform: "translateY(0px)",
+                    },
+                    "70%": {
+                        transform: "translateY(0px)",
+                    },
+                    "80%": {
+                        transform: "translateY(0px)",
+                    },
+                    "90%": {
+                        transform: "translateY(0px)",
+                    },
+                    "100%": {
+                        transform: "translateY(-100px)",
+                    },
+                },
             },
             animation: {
                 wiggle: "wiggle 1.2s ease-in-out",
+                toast: "toast 3.1s ease-in-out",
             },
         },
     },
