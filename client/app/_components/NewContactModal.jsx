@@ -17,7 +17,7 @@ export default function NewContactModal({ closeModal }) {
     }
 
     return (
-        <div className="flex flex-col gap-y-3 justify-center items-center w-11/12">
+        <div className="flex flex-col gap-y-3 justify-center items-center w-11/12 p-3">
             <h2 className="text:md md:text-xl">Create Contact</h2>
             <div className="">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-y-3">

@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import NewConversationModal from "./NewConversationModal";
-import NewContactModal from "./NewContactModal";
 import Conversation from "./Conversation";
 import Contacts from "./Contacts";
 import { RiContactsFill } from "react-icons/ri";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useConversations } from "@/contexts/ConversationsProvider";
+import dynamic from "next/dynamic";
+
+const NewConversationModal = dynamic(() => import("./NewConversationModal"), {
+    loading: () => <p className="p-3">Loading...</p>,
+});
+const NewContactModal = dynamic(() => import("./NewContactModal"), {
+    loading: () => <p className="p-3">Loading...</p>,
+});
 
 const Sidebar = ({ id }) => {
     const [activeKey, setActiveKey] = useState(1);
@@ -58,7 +64,7 @@ const Sidebar = ({ id }) => {
                 <span className="text-gray-200 text-xs">Your number: {id}</span>
             </div>
             {modalOpen && (
-                <div className="fixed top-6 left-6 right-6 flex justify-center items-center w-11/12 h-auto z-20 bg-white rounded-md p-2">
+                <div className="fixed top-6 left-6 right-6 flex justify-center items-center h-auto z-20 bg-white rounded-md">
                     {conversationsOpen ? (
                         <NewConversationModal closeModal={closeModal} />
                     ) : (
