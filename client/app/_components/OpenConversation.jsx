@@ -104,6 +104,11 @@ const OpenConversation = () => {
                             placeholder="Enter your text..."
                             value={text}
                             onChange={(e) => setText(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    handleSubmit(e);
+                                }
+                            }}
                             required
                         ></textarea>
                         <button
